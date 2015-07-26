@@ -1,0 +1,98 @@
+*** Starting uWSGI 2.0.11.1 (64bit) on [Thu Jul 23 15:54:15 2015] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53) on 23 July 2015 10:11:34
+os: Darwin-14.3.0 Darwin Kernel Version 14.3.0: Mon Mar 23 20:23:44 PDT 2015; root:xnu-2782.20.48~8/RELEASE_X86_64
+nodename: veryshiny.local
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /private/var/www/centroids
+detected binary path: /private/var/www/centroids/bin/uwsgi
+your processes number limit is 709
+your memory page size is 4096 bytes
+detected max file descriptor number: 256
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 0.0.0.0:8080 fd 6
+Python version: 2.7.10 (default, Jul 13 2015, 12:05:58)  [GCC 4.2.1 Compatible Apple LLVM 6.1.0 (clang-602.0.53)]
+Set PythonHome to /var/www/centroids
+Python main interpreter initialized at 0x7f8551501750
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 415280 bytes (405 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+[33.96121832188349, -118.37623835739473] <html><body><iframe src="/comment/2"></iframe></body></html>
+[33.96569543981581, -118.35339362250856] <html><body><iframe src="/comment/3"></iframe></body></html>
+[33.94606644383972, -118.37867463419711] <html><body><iframe src="/comment/4"></iframe></body></html>
+[33.974551173905084, -118.33757323102157] <html><body><iframe src="/comment/6"></iframe></body></html>
+[34.221210078307436, -118.50266980486813] <html><body><iframe src="/comment/7"></iframe></body></html>
+[34.23575496708528, -118.50253404370098] <html><body><iframe src="/comment/8"></iframe></body></html>
+[34.20117084856301, -118.50112707625493] <html><body><iframe src="/comment/9"></iframe></body></html>
+[34.012475360498364, -118.46686455567612] <html><body><iframe src="/comment/10"></iframe></body></html>
+[34.221670957387694, -118.43275588353863] <html><body><iframe src="/comment/11"></iframe></body></html>
+[34.20121269905541, -118.43126083175503] <html><body><iframe src="/comment/12"></iframe></body></html>
+[34.02737367026648, -118.42862081986631] <html><body><iframe src="/comment/13"></iframe></body></html>
+[34.3153720995977, -118.42135957247278] <html><body><iframe src="/comment/14"></iframe></body></html>
+[34.24687839744544, -118.4194982876742] <html><body><iframe src="/comment/15"></iframe></body></html>
+[33.95986544433399, -118.3962071277929] <html><body><iframe src="/comment/16"></iframe></body></html>
+[34.18669403127367, -118.39647952990212] <html><body><iframe src="/comment/17"></iframe></body></html>
+[34.19395022834512, -118.39646601856067] <html><body><iframe src="/comment/18"></iframe></body></html>
+[33.98817439239374, -118.39545205678336] <html><body><iframe src="/comment/19"></iframe></body></html>
+[34.2216529789933, -118.39650494040387] <html><body><iframe src="/comment/20"></iframe></body></html>
+[34.18669061507781, -118.38777975477375] <html><body><iframe src="/comment/21"></iframe></body></html>
+[34.201213593999675, -118.38777773232468] <html><body><iframe src="/comment/22"></iframe></body></html>
+[34.19394725756084, -118.38774069117709] <html><body><iframe src="/comment/23"></iframe></body></html>
+[33.977332677419305, -118.37179452684728] <html><body><iframe src="/comment/24"></iframe></body></html>
+[34.18670663146775, -118.37028613119004] <html><body><iframe src="/comment/25"></iframe></body></html>
+[33.988553911978315, -118.3585238169225] <html><body><iframe src="/comment/26"></iframe></body></html>
+[33.9762558498952, -118.35759544758506] <html><body><iframe src="/comment/27"></iframe></body></html>
+[33.98890225820739, -118.35408178871658] <html><body><iframe src="/comment/28"></iframe></body></html>
+[33.805043315172306, -118.3511137736512] <html><body><iframe src="/comment/29"></iframe></body></html>
+[34.076186586914886, -118.34404590804134] <html><body><iframe src="/comment/30"></iframe></body></html>
+[33.7888812061856, -118.30760402524943] <html><body><iframe src="/comment/31"></iframe></body></html>
+[33.78993605884341, -118.29747662519082] <html><body><iframe src="/comment/32"></iframe></body></html>
+[33.743316488747624, -118.2923037023372] <html><body><iframe src="/comment/33"></iframe></body></html>
+[33.88252122705909, -118.29129499128327] <html><body><iframe src="/comment/34"></iframe></body></html>
+[33.83160295924916, -118.29027032624668] <html><body><iframe src="/comment/35"></iframe></body></html>
+[34.06669059621515, -118.2796665425528] <html><body><iframe src="/comment/36"></iframe></body></html>
+[34.06986972809768, -118.27764643661888] <html><body><iframe src="/comment/37"></iframe></body></html>
+[33.77935091513492, -118.27414680320932] <html><body><iframe src="/comment/38"></iframe></body></html>
+[34.07253367928995, -118.27484025410914] <html><body><iframe src="/comment/39"></iframe></body></html>
+[34.06668098408133, -118.27030240590655] <html><body><iframe src="/comment/40"></iframe></body></html>
+[33.86699163138791, -118.26614235022691] <html><body><iframe src="/comment/41"></iframe></body></html>
+[33.77985150070092, -118.26503351950763] <html><body><iframe src="/comment/42"></iframe></body></html>
+[33.94376539770246, -118.26515647693876] <html><body><iframe src="/comment/43"></iframe></body></html>
+[33.94561539906121, -118.26515406822877] <html><body><iframe src="/comment/44"></iframe></body></html>
+[33.97474743864282, -118.26516716810781] <html><body><iframe src="/comment/45"></iframe></body></html>
+[33.960143417850354, -118.26510276819722] <html><body><iframe src="/comment/46"></iframe></body></html>
+[33.98197703653556, -118.26516696382075] <html><body><iframe src="/comment/47"></iframe></body></html>
+[33.98925714014626, -118.265181780309] <html><body><iframe src="/comment/48"></iframe></body></html>
+[33.77998459572096, -118.26243931458471] <html><body><iframe src="/comment/49"></iframe></body></html>
+[33.96017805099632, -118.2563887988337] <html><body><iframe src="/comment/50"></iframe></body></html>
+[33.981997624231596, -118.25643746469574] <html><body><iframe src="/comment/51"></iframe></body></html>
+[33.97477495913722, -118.2564104120648] <html><body><iframe src="/comment/52"></iframe></body></html>
+[33.98932446385658, -118.25643846357961] <html><body><iframe src="/comment/53"></iframe></body></html>
+[33.938267277206016, -118.25415411282023] <html><body><iframe src="/comment/54"></iframe></body></html>
+[33.9432791653924, -118.25408853926] <html><body><iframe src="/comment/55"></iframe></body></html>
+[34.16851060971789, -118.22863463113237] <html><body><iframe src="/comment/56"></iframe></body></html>
+[33.78986792512919, -118.2154685223105] <html><body><iframe src="/comment/57"></iframe></body></html>
+spawned uWSGI master process (pid: 27555)
+SIGINT/SIGQUIT received...killing workers...
+close failed in file object destructor:
+sys.excepthook is missing
+lost sys.stderr
+close failed in file object destructor:
+sys.excepthook is missing
+lost sys.stderr
+close failed in file object destructor:
+sys.excepthook is missing
+lost sys.stderr
+worker 4 buried after 0 seconds
+close failed in file object destructor:
+sys.excepthook is missing
+lost sys.stderr
+worker 3 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 1 buried after 1 seconds
+goodbye to uWSGI.

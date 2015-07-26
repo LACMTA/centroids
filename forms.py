@@ -1,6 +1,7 @@
 from flask_wtf import Form
-from wtforms import TextField, PasswordField
+from wtforms import TextField, PasswordField, BooleanField, HiddenField
 from wtforms.validators import DataRequired, EqualTo, Length
+import time, datetime
 
 # Set your classes here.
 
@@ -31,3 +32,24 @@ class ForgotForm(Form):
     email = TextField(
         'Email', validators=[DataRequired(), Length(min=6, max=40)]
     )
+
+class CommentForm(Form):
+
+    def __init__(self, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
+        self.stop_id = kwargs['stop_id']
+        self.stop_name = "asdasd" # kwargs['stop_name']
+
+    ts = time.time()
+    st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+    ip = '127.0.0.1'
+
+    stop_id = HiddenField('stop_id', default='asd')
+    stop_name = HiddenField('stop_name', default='A SD')
+    timestamp = HiddenField('stop_id', default=st)
+    ip = HiddenField('stop_id', default=ip)
+    freeway_ramps = BooleanField('Freeway Ramps', default=False)
+    sidewalk_poor = BooleanField('Poor sidewalk', default=False)
+    no_crosswalks = BooleanField('No crosswalks', default=False)
+    no_shade = BooleanField('No shade', default=False)
+    poor_signage = BooleanField('Poor signage', default=False)

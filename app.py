@@ -2,11 +2,14 @@
 # Imports
 #----------------------------------------------------------------------------#
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 # from flask.ext.sqlalchemy import SQLAlchemy
+import csv
 import logging
 from logging import Formatter, FileHandler
 from forms import *
+import simplejson as json
+import folium
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -15,6 +18,31 @@ from forms import *
 app = Flask(__name__)
 app.config.from_object('config')
 #db = SQLAlchemy(app)
+stamenmap = folium.Map(location=[34.0552, -118.2352], 
+    tiles='Stamen Toner',
+    zoom_start=13,
+    width='1000', height='600',
+   )
+
+gj='./FullStationAreaSet_Centroids.geojson'
+with open(gj) as f:
+    data = json.load(f)
+
+for feature in data['features']:
+    latlng=[feature['geometry']['coordinates'][1],feature['geometry']['coordinates'][0]]
+    url="/comment/%s" %(feature['properties']['Station_ID'])
+    stop_name=feature['properties']['Name']
+    maxWidth='500px'
+    popup='<html><body><iframe src="%s"></iframe></body></html>' %(url)
+    print latlng, popup
+
+    stamenmap.simple_marker(location=latlng, 
+            popup=popup,
+            )
+print feature
+stamenmap.create_map(path='templates/pages/stamen_toner.html')
+
+
 
 # Automatically tear down SQLAlchemy.
 '''
@@ -39,6 +67,12 @@ def login_required(test):
 # Controllers.
 #----------------------------------------------------------------------------#
 
+def writedata(myfile='centroids.csv',newrow={}):
+    with open(myfile, 'ab') as csvfile:
+        fieldnames = ['stop_id', 'no_shade', 'freeway_ramps', 'poor_signage', 'sidewalk_poor', 'no_crosswalks','timestamp','ip']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        # writer.writeheader()
+        writer.writerow(newrow)
 
 @app.route('/')
 def home():
@@ -49,6 +83,28 @@ def home():
 def about():
     return render_template('pages/placeholder.about.html')
 
+
+@app.route('/map')
+def map():
+    return render_template('pages/stamen_toner.html')
+
+@app.route('/comment/<stop_id>', methods=('GET', 'POST'))
+def comment(stop_id):
+    form = CommentForm(stop_id=stop_id, stop_name='hi')
+    form.stop_id=stop_id
+    if form.validate_on_submit():
+        flash(form.data)
+        writedata(myfile='centroids.csv',newrow=form.data)
+        # print form.data
+    else:
+        flash(form.errors)
+        # print form.errors
+
+    return render_template(
+        'forms/comment.html', 
+        title='comment',
+        form=form,
+        )
 
 @app.route('/login')
 def login():

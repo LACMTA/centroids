@@ -1,0 +1,23 @@
+{% extends 'layouts/form.html' %} 
+
+{% block title %}Comment for {{ form.stop_name }}{% endblock %} 
+
+{% block content %}
+    <form method="post" class="form">
+        <h3 class="form-heading">
+            Comment on {{form.stop_name}}
+        </h3> {{ form.hidden_tag() }}
+        <p>{{ form.freeway_ramps }} {{ form.freeway_ramps.label }}</p>
+        <p>{{ form.sidewalk_poor }} {{ form.sidewalk_poor.label }}</p>
+        <p>{{ form.no_crosswalks }} {{ form.no_crosswalks.label }}</p>
+        <p>{{ form.no_shade }} {{ form.no_shade.label }}</p>
+        <p>{{ form.poor_signage }} {{ form.poor_signage.label }}</p>
+        <input type="hidden" name="stop_id" value="{{ form.stop_id }}">
+       <input type="hidden" name="stop_name" value="{{ form.stop_name }}">
+
+        <hr />
+
+        <input type="submit" value="Record comment">
+    </form>
+
+{% endblock %}

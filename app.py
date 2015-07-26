@@ -4,7 +4,7 @@
 
 from flask import Flask, render_template, request, flash
 # from flask.ext.sqlalchemy import SQLAlchemy
-import csv
+import csv, os
 import logging
 from logging import Formatter, FileHandler
 from forms import *

@@ -15,8 +15,8 @@ import folium
 # App Config.
 #----------------------------------------------------------------------------#
 
-app = Flask(__name__)
-app.config.from_object('config')
+application = Flask(__name__)
+application.config.from_object('config')
 #db = SQLAlchemy(app)
 stamenmap = folium.Map(location=[34.0552, -118.2352], 
     tiles='Stamen Toner',
@@ -46,7 +46,7 @@ stamenmap.create_map(path='templates/pages/stamen_toner.html')
 
 # Automatically tear down SQLAlchemy.
 '''
-@app.teardown_request
+@application.teardown_request
 def shutdown_session(exception=None):
     db_session.remove()
 '''
@@ -74,22 +74,22 @@ def writedata(myfile='centroids.csv',newrow={}):
         # writer.writeheader()
         writer.writerow(newrow)
 
-@app.route('/')
+@application.route('/')
 def home():
     return render_template('pages/stamen_toner.html')
     # return render_template('pages/placeholder.home.html')
 
 
-@app.route('/about')
+@application.route('/about')
 def about():
     return render_template('pages/placeholder.about.html')
 
 
-@app.route('/map')
+@application.route('/map')
 def map():
     return render_template('pages/stamen_toner.html')
 
-@app.route('/comment/<stop_id>', methods=('GET', 'POST'))
+@application.route('/comment/<stop_id>', methods=('GET', 'POST'))
 def comment(stop_id):
     form = CommentForm(stop_id=stop_id, stop_name='hi')
     form.stop_id=stop_id
@@ -107,19 +107,19 @@ def comment(stop_id):
         form=form,
         )
 
-@app.route('/login')
+@application.route('/login')
 def login():
     form = LoginForm(request.form)
     return render_template('forms/login.html', form=form)
 
 
-@app.route('/register')
+@application.route('/register')
 def register():
     form = RegisterForm(request.form)
     return render_template('forms/register.html', form=form)
 
 
-@app.route('/forgot')
+@application.route('/forgot')
 def forgot():
     form = ForgotForm(request.form)
     return render_template('forms/forgot.html', form=form)
@@ -127,25 +127,25 @@ def forgot():
 # Error handlers.
 
 
-@app.errorhandler(500)
+@application.errorhandler(500)
 def internal_error(error):
     #db_session.rollback()
     return render_template('errors/500.html'), 500
 
 
-@app.errorhandler(404)
+@application.errorhandler(404)
 def not_found_error(error):
     return render_template('errors/404.html'), 404
 
-if not app.debug:
+if not application.debug:
     file_handler = FileHandler('error.log')
     file_handler.setFormatter(
         Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]')
     )
-    app.logger.setLevel(logging.INFO)
+    application.logger.setLevel(logging.INFO)
     file_handler.setLevel(logging.INFO)
-    app.logger.addHandler(file_handler)
-    app.logger.info('errors')
+    application.logger.addHandler(file_handler)
+    application.logger.info('errors')
 
 #----------------------------------------------------------------------------#
 # Launch.
@@ -153,13 +153,7 @@ if not app.debug:
 
 # Default port:
 if __name__ == '__main__':
-    # app.run()
-    port = int(os.environ.get('PORT', 8000))
-    app.run(host='0.0.0.0', port=port)
+    # application.run()
+    port = int(os.environ.get('PORT', 80))
+    application.run(host='0.0.0.0', port=port)
 
-# Or specify port manually:
-'''
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
-'''

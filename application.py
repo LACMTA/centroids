@@ -69,7 +69,7 @@ def login_required(test):
 # Controllers.
 #----------------------------------------------------------------------------#
 
-def writedata(myfile='centroids.csv',newrow={}):
+def writedata(myfile='static/centroids.csv',newrow={}):
     with open(myfile, 'ab') as csvfile:
         fieldnames = ['stop_id', 'stop_name', 'no_shade', 'freeway_ramps', 'poor_signage', 'sidewalk_poor', 'no_crosswalks','timestamp','ip']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -98,7 +98,7 @@ def comment(stop_id=0,stop_name='hihi'):
     form.stop_id=stop_id
     if form.validate_on_submit():
         # flash(form.data)
-        writedata(myfile='centroids.csv',newrow=form.data)
+        writedata(myfile='static/centroids.csv',newrow=form.data)
         flash("Thanks!")
         # print form.data
     # else:
@@ -158,6 +158,6 @@ if not application.debug:
 
 # Default port:
 if __name__ == '__main__':
-    run_simple('0.0.0.0', 5000, application, use_reloader=True)
+    run_simple('0.0.0.0', 5000, application, use_debugger=True, use_reloader=True)
 
 

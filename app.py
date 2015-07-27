@@ -35,7 +35,7 @@ for feature in data['features']:
     url="/comment/%s" %(feature['properties']['Station_ID'])
     stop_name=feature['properties']['Name']
     maxWidth='500px'
-    popup='<html><body><iframe src="%s"></iframe></body></html>' %(url)
+    popup='<html><body><iframe src="%s?%s"></iframe></body></html>' %(url,stop_name)
     print latlng, popup
 
     stamenmap.simple_marker(location=latlng, 
@@ -90,9 +90,9 @@ def about():
 def map():
     return render_template('pages/stamen_toner.html')
 
-@app.route('/comment/<stop_id>', methods=('GET', 'POST'))
-def comment(stop_id):
-    form = CommentForm(stop_id=stop_id, stop_name='hi')
+@app.route('/comment/<stop_id>?<path:stop_name>', methods=('GET', 'POST'))
+def comment(stop_id=0,stop_name='hihi'):
+    form = CommentForm(stop_id=stop_id, stop_name=stop_name)
     form.stop_id=stop_id
     if form.validate_on_submit():
         flash(form.data)

@@ -2,7 +2,7 @@
 # Imports
 #----------------------------------------------------------------------------#
 
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, url_for
 # from flask.ext.sqlalchemy import SQLAlchemy
 import csv, os
 from werkzeug.serving import run_simple
@@ -32,9 +32,10 @@ with open(gj) as f:
 for feature in data['features']:
     latlng=[feature['geometry']['coordinates'][1],feature['geometry']['coordinates'][0]]
     url="/comment/%s" %(feature['properties']['Station_ID'])
-    stop_name=feature['properties']['Name']
+    name = feature['properties']['Name']
+    stop_name = name.replace("/", "_")
     maxWidth='500px'
-    popup='<html><body><iframe src="%s?%s"></iframe></body></html>' %(url,stop_name)
+    popup='<html><body><iframe src="%s/%s"></iframe></body></html>' %(url,stop_name)
     print latlng, popup
 
     stamenmap.simple_marker(location=latlng, 
@@ -70,7 +71,7 @@ def login_required(test):
 
 def writedata(myfile='centroids.csv',newrow={}):
     with open(myfile, 'ab') as csvfile:
-        fieldnames = ['stop_id', 'no_shade', 'freeway_ramps', 'poor_signage', 'sidewalk_poor', 'no_crosswalks','timestamp','ip']
+        fieldnames = ['stop_id', 'stop_name', 'no_shade', 'freeway_ramps', 'poor_signage', 'sidewalk_poor', 'no_crosswalks','timestamp','ip']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         # writer.writeheader()
         writer.writerow(newrow)
@@ -90,16 +91,18 @@ def about():
 def map():
     return render_template('pages/stamen_toner.html')
 
-@application.route('/comment/<stop_id>?<path:stop_name>', methods=('GET', 'POST'))
+@application.route('/comment/<stop_id>/<stop_name>', methods=('GET', 'POST'))
 def comment(stop_id=0,stop_name='hihi'):
-    form = CommentForm(stop_id=stop_id, stop_name=stop_name)
+    restored = stop_name.replace("_", "/")
+    form = CommentForm(stop_id=stop_id, stop_name=restored)
     form.stop_id=stop_id
     if form.validate_on_submit():
-        flash(form.data)
+        # flash(form.data)
         writedata(myfile='centroids.csv',newrow=form.data)
+        flash("Thanks!")
         # print form.data
-    else:
-        flash(form.errors)
+    # else:
+        # flash(form.errors)
         # print form.errors
 
     return render_template(

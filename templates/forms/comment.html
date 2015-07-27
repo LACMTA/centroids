@@ -5,7 +5,9 @@
 {% block content %}
     <form method="post" class="form">
         <h3 class="form-heading">
-            Comment on {{form.stop_name}}
+            {% if form.stop_name %}
+                Comment on {{form.stop_name}}
+            {% endif %}
         </h3> {{ form.hidden_tag() }}
         <p>{{ form.freeway_ramps }} {{ form.freeway_ramps.label }}</p>
         <p>{{ form.sidewalk_poor }} {{ form.sidewalk_poor.label }}</p>
@@ -13,7 +15,7 @@
         <p>{{ form.no_shade }} {{ form.no_shade.label }}</p>
         <p>{{ form.poor_signage }} {{ form.poor_signage.label }}</p>
         <input type="hidden" name="stop_id" value="{{ form.stop_id }}">
-       <input type="hidden" name="stop_name" value="{{ form.stop_name }}">
+        <input type="hidden" name="stop_name" value="{{ form.stop_name }}">
 
         <hr />
 

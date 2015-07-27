@@ -38,7 +38,10 @@ class CommentForm(Form):
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
         self.stop_id = kwargs['stop_id']
-        self.stop_name = "asdasd" # kwargs['stop_name']
+        if kwargs['stop_name']:
+            self.stop_name = kwargs['stop_name']
+        else:
+            self.stop_name = "glargh"
 
     ts = time.time()
     st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')

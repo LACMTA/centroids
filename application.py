@@ -5,6 +5,7 @@
 from flask import Flask, render_template, request, flash
 # from flask.ext.sqlalchemy import SQLAlchemy
 import csv, os
+from werkzeug.serving import run_simple
 import logging
 from logging import Formatter, FileHandler
 from forms import *
@@ -76,8 +77,8 @@ def writedata(myfile='centroids.csv',newrow={}):
 
 @application.route('/')
 def home():
-    return render_template('pages/stamen_toner.html')
-    # return render_template('pages/placeholder.home.html')
+    # return render_template('pages/stamen_toner.html')
+    return render_template('pages/placeholder.home.html')
 
 
 @application.route('/about')
@@ -153,7 +154,6 @@ if not application.debug:
 
 # Default port:
 if __name__ == '__main__':
-    # application.run()
-    # port = int(os.environ.get('PORT', 80))
-    application.run(host='0.0.0.0')
+    run_simple('0.0.0.0', 5000, application, use_reloader=True)
+
 

@@ -5,11 +5,13 @@
 from flask import Flask, render_template, request, flash
 # from flask.ext.sqlalchemy import SQLAlchemy
 import csv, os
+from werkzeug.serving import run_simple
 import logging
 from logging import Formatter, FileHandler
 from forms import *
 import simplejson as json
 import folium
+
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -76,8 +78,7 @@ def writedata(myfile='centroids.csv',newrow={}):
 
 @app.route('/')
 def home():
-    return render_template('pages/stamen_toner.html')
-    # return render_template('pages/placeholder.home.html')
+    return render_template('pages/placeholder.home.html')
 
 
 @app.route('/about')
@@ -153,13 +154,5 @@ if not app.debug:
 
 # Default port:
 if __name__ == '__main__':
-    # app.run()
-    port = int(os.environ.get('PORT', 8000))
-    app.run(host='0.0.0.0', port=port)
+    run_simple('localhost', 5000, app, use_reloader=True)
 
-# Or specify port manually:
-'''
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
-'''

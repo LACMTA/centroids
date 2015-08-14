@@ -36,12 +36,12 @@ for feature in data['features']:
     stop_name = name.replace("/", "_")
     maxWidth='500px'
     popup='<html><body><iframe src="%s/%s" style="width:555px;height:444px"></iframe></body></html>' %(url,stop_name)
-    print latlng, popup
+    # print latlng, popup
 
     stamenmap.simple_marker(location=latlng, 
             popup=popup,
             )
-print feature
+# print feature
 stamenmap.create_map(path='templates/pages/stamen_toner.html')
 
 
@@ -117,8 +117,11 @@ def map():
 
 @application.route('/comment/<stop_id>/<stop_name>', methods=('GET', 'POST'))
 def comment(stop_id=0,stop_name='hihi'):
+    ts = time.time()
+    st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+
     restored = stop_name.replace("_", "/")
-    form = CommentForm(stop_id=stop_id, stop_name=restored, ip=request.remote_addr)
+    form = CommentForm(stop_id=stop_id, stop_name=restored, ip=request.remote_addr, timestamp=st)
     form.stop_id=stop_id
     if form.validate_on_submit():
         # flash(form.data)

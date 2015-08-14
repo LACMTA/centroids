@@ -2,9 +2,10 @@
 # Imports
 #----------------------------------------------------------------------------#
 
-from flask import Flask, render_template, request, flash, url_for
+from flask import Flask, render_template, request, flash, url_for, request
 # from flask.ext.sqlalchemy import SQLAlchemy
-import csv, os
+import csv, os, os.path
+from collections import OrderedDict
 from werkzeug.serving import run_simple
 import logging
 from logging import Formatter, FileHandler
@@ -22,7 +23,6 @@ application.config.from_object('config')
 stamenmap = folium.Map(location=[34.0552, -118.2352], 
     tiles='Stamen Toner',
     zoom_start=13,
-    width='1000', height='600',
    )
 
 gj='./FullStationAreaSet_Centroids.geojson'
@@ -35,7 +35,7 @@ for feature in data['features']:
     name = feature['properties']['Name']
     stop_name = name.replace("/", "_")
     maxWidth='500px'
-    popup='<html><body><iframe src="%s/%s"></iframe></body></html>' %(url,stop_name)
+    popup='<html><body><iframe src="%s/%s" style="width:555px;height:444px"></iframe></body></html>' %(url,stop_name)
     print latlng, popup
 
     stamenmap.simple_marker(location=latlng, 
@@ -70,11 +70,35 @@ def login_required(test):
 #----------------------------------------------------------------------------#
 
 def writedata(myfile='static/centroids.csv',newrow={}):
-    with open(myfile, 'ab') as csvfile:
-        fieldnames = ['stop_id', 'stop_name', 'no_shade', 'freeway_ramps', 'poor_signage', 'sidewalk_poor', 'no_crosswalks','timestamp','ip']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        # writer.writeheader()
-        writer.writerow(newrow)
+    ordered_fieldnames = OrderedDict([
+        ('ip',None),
+        ('stop_id',None),
+        ('timestamp',None),
+        ('stop_name',None),
+        ('freeway_ramps',None),
+        ('sidewalk_poor',None),
+        ('poor_crosswalks',None),
+        ('not_safe',None),
+        ('vehicle_speed',None),
+        ('poor_lighting',None),
+        ('poor_signage',None),
+        ('no_enforcement',None),
+        ('no_shade',None),
+        ('personal_safety',None),
+        ('too_far',None),
+        ('bad_drivers',None),
+        ('no_facilities',None),
+        ('other',None),
+        ])
+    if not os.path.isfile(myfile):
+        with open(myfile,'wb') as fou:
+            dw = csv.DictWriter(fou, delimiter=',', fieldnames=ordered_fieldnames)
+            dw.writeheader()
+            dw.writerow(newrow)
+    else:
+        with open(myfile,'ab') as fou:
+            dw = csv.DictWriter(fou, delimiter=',', fieldnames=ordered_fieldnames)
+            dw.writerow(newrow)
 
 @application.route('/')
 def home():
@@ -94,7 +118,7 @@ def map():
 @application.route('/comment/<stop_id>/<stop_name>', methods=('GET', 'POST'))
 def comment(stop_id=0,stop_name='hihi'):
     restored = stop_name.replace("_", "/")
-    form = CommentForm(stop_id=stop_id, stop_name=restored)
+    form = CommentForm(stop_id=stop_id, stop_name=restored, ip=request.remote_addr)
     form.stop_id=stop_id
     if form.validate_on_submit():
         # flash(form.data)

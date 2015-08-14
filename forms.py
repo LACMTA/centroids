@@ -38,6 +38,7 @@ class CommentForm(Form):
     def __init__(self, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
         self.stop_id = kwargs['stop_id']
+        self.ip = kwargs['ip']
         if kwargs['stop_name']:
             self.stop_name = kwargs['stop_name']
         else:
@@ -50,9 +51,19 @@ class CommentForm(Form):
     stop_id = HiddenField('stop_id', default='asd')
     stop_name = HiddenField('stop_name', default='A SD')
     timestamp = HiddenField('stop_id', default=st)
-    ip = HiddenField('stop_id', default=ip)
+    ip = HiddenField('ip', default=ip)
+
     freeway_ramps = BooleanField('Freeway Ramps', default=False)
-    sidewalk_poor = BooleanField('Poor sidewalk', default=False)
-    no_crosswalks = BooleanField('No crosswalks', default=False)
+    sidewalk_poor = BooleanField('Poor sidewalk conditions or lack of sidewalk', default=False)
+    poor_crosswalks = BooleanField('Poor crosswalks or lack of crosswalks', default=False)
+    not_safe = BooleanField('No safe place to bicycle', default=False)
+    vehicle_speed = BooleanField('Vehicle speed and traffic (due to freeway ramps)', default=False)
+    poor_lighting = BooleanField('Poor lighting', default=False)
+    poor_signage = BooleanField('Poor signage or lack of crosswalks', default=False)
+    no_enforcement = BooleanField('Lack of enforcement of traffic violations', default=False)
     no_shade = BooleanField('No shade', default=False)
-    poor_signage = BooleanField('Poor signage', default=False)
+    personal_safety = BooleanField('Personal safety concerns', default=False)
+    too_far = BooleanField('Destinations are too far away', default=False)
+    bad_drivers = BooleanField('Bad driver behaviors', default=False)
+    no_facilities = BooleanField('Lack of worksite facilities (for example, showers or lockers)', default=False)
+    other = BooleanField('Other challenges not listed above', default=False)

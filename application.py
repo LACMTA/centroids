@@ -20,8 +20,8 @@ import folium
 application = Flask(__name__)
 application.config.from_object('config')
 #db = SQLAlchemy(app)
-stamenmap = folium.Map(location=[34.0552, -118.2352], 
-    tiles='Stamen Toner',
+stamenmap = folium.Map(location=[34.0552, -118.2352],
+    tiles='OpenStreetMap',
     zoom_start=13,
    )
 
@@ -34,11 +34,11 @@ for feature in data['features']:
     url="/comment/%s" %(feature['properties']['Station_ID'])
     name = feature['properties']['Name']
     stop_name = name.replace("/", "_")
-    maxWidth='500px'
-    popup='<html><body><iframe src="%s/%s" style="width:555px;height:444px"></iframe></body></html>' %(url,stop_name)
+    maxWidth='555px'
+    popup='<html><body><iframe src="%s/%s" style="width:555px;height:250px"></iframe></body></html>' %(url,stop_name)
     # print latlng, popup
 
-    stamenmap.simple_marker(location=latlng, 
+    stamenmap.simple_marker(location=latlng,
             popup=popup,
             )
 # print feature
@@ -123,17 +123,18 @@ def comment(stop_id=0,stop_name='hihi'):
     restored = stop_name.replace("_", "/")
     form = CommentForm(stop_id=stop_id, stop_name=restored, ip=request.remote_addr, timestamp=st)
     form.stop_id=stop_id
+    flashmsg = "%s" %(restored)
     if form.validate_on_submit():
         # flash(form.data)
         writedata(myfile='static/centroids.csv',newrow=form.data)
-        flash("Thanks!")
+        flash(flashmsg)
         # print form.data
     # else:
         # flash(form.errors)
         # print form.errors
 
     return render_template(
-        'forms/comment.html', 
+        'forms/comment.html',
         title='comment',
         form=form,
         )
@@ -185,6 +186,4 @@ if not application.debug:
 
 # Default port:
 if __name__ == '__main__':
-    run_simple('0.0.0.0', 5000, application, use_debugger=True, use_reloader=True)
-
-
+    run_simple('127.0.0.1', 5000, application, use_debugger=True, use_reloader=True)

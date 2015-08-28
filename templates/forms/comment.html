@@ -1,31 +1,34 @@
-{% extends 'layouts/form.html' %} 
+{% extends 'layouts/form.html' %}
 
-{% block title %}Comment for {{ form.stop_name }}{% endblock %} 
+{% block title %}Comment for {{ form.stop_name }}{% endblock %}
 
 {% block content %}
     <form method="post" class="form">
         <h3 class="form-heading">
             {% if form.stop_name %}
-                Comment on {{form.stop_name}}
+                You selected <strong>{{form.stop_name}}</strong>
             {% endif %}
-        </h3> 
-        
+        </h3>
+
         {{ form.hidden_tag() }}
 
-        <p>{{ form.freeway_ramps }} {{ form.freeway_ramps.label }}</p>
-        <p>{{ form.sidewalk_poor }} {{ form.sidewalk_poor.label }}</p>
-        <p>{{ form.poor_crosswalks }} {{ form.poor_crosswalks.label }}</p>
-        <p>{{ form.not_safe }} {{ form.not_safe.label }}</p>
-        <p>{{ form.vehicle_speed }} {{ form.vehicle_speed.label }}</p>
-        <p>{{ form.poor_lighting }} {{ form.poor_lighting.label }}</p>
-        <p>{{ form.poor_signage }} {{ form.poor_signage.label }}</p>
-        <p>{{ form.no_enforcement }} {{ form.no_enforcement.label }}</p>
-        <p>{{ form.no_shade }} {{ form.no_shade.label }}</p>
-        <p>{{ form.personal_safety }} {{ form.personal_safety.label }}</p>
-        <p>{{ form.too_far }} {{ form.too_far.label }}</p>
-        <p>{{ form.bad_drivers }} {{ form.bad_drivers.label }}</p>
-        <p>{{ form.no_facilities }} {{ form.no_facilities.label }}</p>
-        <p>{{ form.other }} {{ form.other.label }}</p>
+        {# -- they don't want this anymore #}
+        {#
+          <p>{{ form.freeway_ramps }} {{ form.freeway_ramps.label }}</p>
+          <p>{{ form.sidewalk_poor }} {{ form.sidewalk_poor.label }}</p>
+          <p>{{ form.poor_crosswalks }} {{ form.poor_crosswalks.label }}</p>
+          <p>{{ form.not_safe }} {{ form.not_safe.label }}</p>
+          <p>{{ form.vehicle_speed }} {{ form.vehicle_speed.label }}</p>
+          <p>{{ form.poor_lighting }} {{ form.poor_lighting.label }}</p>
+          <p>{{ form.poor_signage }} {{ form.poor_signage.label }}</p>
+          <p>{{ form.no_enforcement }} {{ form.no_enforcement.label }}</p>
+          <p>{{ form.no_shade }} {{ form.no_shade.label }}</p>
+          <p>{{ form.personal_safety }} {{ form.personal_safety.label }}</p>
+          <p>{{ form.too_far }} {{ form.too_far.label }}</p>
+          <p>{{ form.bad_drivers }} {{ form.bad_drivers.label }}</p>
+          <p>{{ form.no_facilities }} {{ form.no_facilities.label }}</p>
+          <p>{{ form.other }} {{ form.other.label }}</p>
+        #}
 
         <input type="hidden" name="stop_id" value="{{ form.stop_id }}">
         <input type="hidden" name="stop_name" value="{{ form.stop_name }}">
@@ -54,4 +57,3 @@
     no_facilities = BooleanField('Lack of worksite facilities (for example, showers or lockers)', default=False)
     other = BooleanField('Other challenges not listed above', default=False)
  -->
-
